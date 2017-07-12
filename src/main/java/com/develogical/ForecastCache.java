@@ -10,17 +10,21 @@ import java.util.Map;
 /**
  * Created by ape02 on 12/07/2017.
  */
-public class ForecastCacheAdapter implements ForecasterInterface{
+public class ForecastCache implements ForecasterInterface{
+
 
     private ForecasterInterface forecaster;
     private Map<String, Forecast> cache = new HashMap<>();
 
-    public ForecastCacheAdapter(ForecasterInterface forescaster){
+
+    public ForecastCache(ForecasterInterface forescaster){
         this.forecaster = forescaster;
     }
 
     @Override
     public Forecast forecastFor(Region region, Day day) {
+
+
         if(cache.containsKey(region.name()+day.name())){
             return cache.get(region.name()+day.name());
         }

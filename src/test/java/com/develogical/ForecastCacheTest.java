@@ -16,25 +16,25 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CachedForecastAdapterTest {
+public class ForecastCacheTest {
 
     @Mock
-    ForecastAdapter forecaster;
+    ForecasterInterface forecaster;
     @InjectMocks
-    ForecastCacheAdapter cachedForecastAdapter;
+    ForecastCache forecastCache;
     @Mock
     Forecast forecast;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         when(forecaster.forecastFor(Region.BIRMINGHAM, Day.WEDNESDAY)).thenReturn(forecast);
     }
 
     @Test
     public void retrievForcastFromCache() throws Exception {
-        cachedForecastAdapter.forecastFor(Region.BIRMINGHAM, Day.WEDNESDAY);
-        cachedForecastAdapter.forecastFor(Region.BIRMINGHAM, Day.WEDNESDAY);
+        forecastCache.forecastFor(Region.BIRMINGHAM, Day.WEDNESDAY);
+        forecastCache.forecastFor(Region.BIRMINGHAM, Day.WEDNESDAY);
         verify(forecaster).forecastFor(Region.BIRMINGHAM, Day.WEDNESDAY);
-
     }
+
 }
