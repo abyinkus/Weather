@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class ForecastCache implements ForecasterInterface{
 
-
+    private static final int MAX = 3;
     private ForecasterInterface forecaster;
     private Map<String, Forecast> cache = new HashMap<>();
 
@@ -23,7 +23,9 @@ public class ForecastCache implements ForecasterInterface{
 
     @Override
     public Forecast forecastFor(Region region, Day day) {
-
+        if (cache.values().size() > MAX){
+            cache.clear();
+        }
 
         if(cache.containsKey(region.name()+day.name())){
             return cache.get(region.name()+day.name());

@@ -32,9 +32,12 @@ public class ForecastCacheTest {
 
     @Test
     public void retrievForcastFromCache() throws Exception {
+        forecastCache.forecastFor(Region.BIRMINGHAM, Day.TUESDAY);
         forecastCache.forecastFor(Region.BIRMINGHAM, Day.WEDNESDAY);
-        forecastCache.forecastFor(Region.BIRMINGHAM, Day.WEDNESDAY);
-        verify(forecaster).forecastFor(Region.BIRMINGHAM, Day.WEDNESDAY);
+        forecastCache.forecastFor(Region.BIRMINGHAM, Day.THURSDAY);
+        forecastCache.forecastFor(Region.BIRMINGHAM, Day.FRIDAY);
+        forecastCache.forecastFor(Region.BIRMINGHAM, Day.TUESDAY);
+        verify(forecaster, times(2)).forecastFor(Region.BIRMINGHAM, Day.TUESDAY);
     }
 
 }
