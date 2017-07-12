@@ -4,6 +4,7 @@ import com.weather.Day;
 import com.weather.Forecast;
 import com.weather.Forecaster;
 import com.weather.Region;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +32,21 @@ public class ForecastCacheTest {
     }
 
     @Test
-    public void retrievForcastFromCache() throws Exception {
+    public void retrieveForecast() {
+        Forecast cacheForecast = forecastCache.forecastFor(Region.BIRMINGHAM, Day.WEDNESDAY);
+        Assert.assertEquals(forecast, cacheForecast);
+    }
+
+    @Test
+    public void retrievForcastFromCacheNoCacheReset() throws Exception {
+        forecastCache.forecastFor(Region.BIRMINGHAM, Day.TUESDAY);
+        forecastCache.forecastFor(Region.BIRMINGHAM, Day.TUESDAY);
+        verify(forecaster).forecastFor(Region.BIRMINGHAM, Day.TUESDAY);
+
+    }
+
+    @Test
+    public void retrievForcastFromCacheWithCacheReset() throws Exception {
         forecastCache.forecastFor(Region.BIRMINGHAM, Day.TUESDAY);
         forecastCache.forecastFor(Region.BIRMINGHAM, Day.WEDNESDAY);
         forecastCache.forecastFor(Region.BIRMINGHAM, Day.THURSDAY);
