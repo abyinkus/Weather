@@ -12,11 +12,11 @@ import java.util.Map;
  */
 public class ForecastCacheAdapter implements ForecasterInterface{
 
-    private ForecasterInterface forescaster;
+    private ForecasterInterface forecaster;
     private Map<String, Forecast> cache = new HashMap<>();
 
     public ForecastCacheAdapter(ForecasterInterface forescaster){
-        this.forescaster = forescaster;
+        this.forecaster = forescaster;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class ForecastCacheAdapter implements ForecasterInterface{
         if(cache.containsKey(region.name()+day.name())){
             return cache.get(region.name()+day.name());
         }
-        Forecast forecast = forescaster.forecastFor(region, day);
+        Forecast forecast = forecaster.forecastFor(region, day);
         cache.put(region.name()+day.name(), forecast);
         return  forecast;
     }
